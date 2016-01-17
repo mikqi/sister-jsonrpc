@@ -34,8 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', routes);
 
 var server = jayson.server({
-  echo: function(msg, time, callback) {
-    callback(null, { pesan: msg, waktu: time });
+  echo: function(data, time, callback) {
+    callback(null, { detail: data, waktu: time });
   },
 
   multiply: function(a, b, callback) {

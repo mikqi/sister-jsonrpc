@@ -17,18 +17,21 @@ alertify.prompt('Masukkan nama anda', 'Joko', function(evt, value) {
 $('.ajs-header')[0].innerHTML = 'Selamat Datang!';
 
 var socket = io();
+
+// ON SUBMIT DATA DI KIRIM KE SERVER
 $('form').submit(function() {
-  socket.emit('chat message', $('#message').val());
+  socket.emit('chat message', { nama: localStorage.getItem('nama'), pesan:$('#message').val() });
   $('#message').val('');
   return false;
 });
 
-socket.on('chat message', function(msg) {
-  console.log(msg);
+// KETIKA ADA DATA BERUBAH LANGSUNG BUAT ELEMEN BARU
+socket.on('chat message', function(data) {
+  console.log(data);
   $('#messages').append(`<div class="mdl-card mdl-shadow--2dp">
   <div class="mdl-card__title mdl-card--expand">
-    <p> ${msg[msg.length - 1].result.pesan} </p>
-    <p class="end"> ${msg[msg.length - 1].result.waktu} </p>
+    <p> <strong><em> ${data[data.length - 1].result.detail.nama} &nbsp; : &nbsp;</em></strong> ${data[data.length - 1].result.detail.pesan} </p>
+  <p class="end"> ${data[data.length - 1].result.waktu} </p>
   </div> </div>`);
 
 });
