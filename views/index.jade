@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  //- h1= title
+  //- p Welcome to #{title.length}
+  //- each t in title
+  //-   p=t.result
+  //- form(method="post", action="/")
+  //-   input(type="text", name="message")
+  //-   input(type="submit", value="Kirim")
+  //-   <ul id="messages"></ul>
+  //-     <form action="">
+  //-       <input id="m" autocomplete="off" /><button>Send</button>
+  //-     </form>
+  each t in title
+    //- li= t.result
+    div(class=" mdl-card mdl-shadow--2dp")
+      div(class="mdl-card__title mdl-card--expand")
+        p= t.result.pesan
+        p(class="end")= t.result.waktu
+  div(id="messages")
+    
+  div(class="content-message")
+    form(method="post", action="/")
+      div(class="mdl-textfield mdl-js-textfield content-message__text")
+        input(id="message", type="text", class="mdl-textfield__input")
+        label(class="mdl-textfield__label") Message..
+      button(class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--mini-fab mdl-js-ripple-effect") 
+        i(class="material-icons") send
