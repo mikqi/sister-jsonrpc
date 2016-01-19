@@ -1,21 +1,48 @@
 extends layout
 
 block content
-  each t in title
-    //- li= t.result
-    div(class=" mdl-card mdl-shadow--2dp")
-      div(class="mdl-card__title mdl-card--expand")
-        p
-          strong 
-            em= t.result.detail.nama + ' : '
-          = t.result.detail.pesan
-        p(class="end")=  t.result.waktu
-  div(id="messages")
+  div(class="mdl-layout mdl-js-layout")
+    header(class="mdl-layout__header")
+      div(class="mdl-layout-icon")
+      div(class="mdl-layout__header-row")
+        i(class="material-icons icon-forum") forum
+        span(class="mdl-layout__title") Sister - JSON RPC
+        div(class="mdl-layout-spacer")
+        nav(class="mdl-navigation")
+          button(class="button-info mdl-navigation__link mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect info", id="info") 
+            i(class="material-icons") info
+          div(class="mdl-tooltip", for="info") Tentang Aplikasi Ini
+    div(class="mdl-layout__drawer")
+      span(class="mdl-layout__title") Sister - JSON RPC
+      nav(class="mdl-navigation")
+        a(class="mdl-navigation__link info", href="#") Info
+          
+          
+
+  div(class="container-messages")
+    each t in title
+      //- li= t.result
+      div(class=" mdl-card mdl-shadow--2dp")
+        div(class="mdl-card__title mdl-card--expand")
+          p
+            strong 
+              em= t.result.detail.nama + ' : '
+            = t.result.detail.pesan
+          p(class="end")=  t.result.waktu
+    div(id="messages")
     
+  //- div(class="fab")
+  //-   button(class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--mini-fab mdl-js-ripple-effect") 
+  //-     i(class="material-icons") info
+
   div(class="content-message")
     form(method="post", action="/")
-      div(class="mdl-textfield mdl-js-textfield content-message__text")
-        input(id="message", type="text", class="mdl-textfield__input")
-        label(class="mdl-textfield__label") Message..
-      button(class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--mini-fab mdl-js-ripple-effect") 
-        i(class="material-icons") send
+      div(class="mdl-grid")
+        div(class="mdl-cell mdl-cell--11-col")
+          div(class="mdl-textfield mdl-js-textfield content-message__text")
+            input(id="message", type="text", class="mdl-textfield__input", required)
+            label(class="mdl-textfield__label") Message..
+        div(class="mdl-cell mdl-cell--1-col")
+          button(class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--mini-fab mdl-js-ripple-effect") 
+            i(class="material-icons") send
+        

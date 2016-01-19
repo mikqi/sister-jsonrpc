@@ -12,9 +12,21 @@ alertify.prompt('Masukkan nama anda', 'Joko', function(evt, value) {
   function() {
     localStorage.setItem('nama', 'default');
     alertify.error('nama default anda default');
-  });
+  }).setHeader('Selamat Datang!');
 
-$('.ajs-header')[0].innerHTML = 'Selamat Datang!';
+var team = `
+<ul>
+  <li> N </li>
+  <li> A </li>
+  <li> M </li>
+  <li> A </li>
+</ul>
+`;
+
+$('.info').on('click', function() {
+  console.log('clicked');
+  alertify.alert(team).setHeader('Anggota Kelompok').set({ movable: false });
+});
 
 var socket = io();
 

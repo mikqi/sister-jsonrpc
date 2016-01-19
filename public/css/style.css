@@ -1,17 +1,26 @@
 body {
   background-color: #EEEEEE;
+  background: #EEEEEE url("../img/pattern.png") repeat;
   font-family: "Roboto", "Helvetica", "Arial";
+}
+.container-messages {
+  margin-top: 5%;
+  position: absolute;
+  width: 100%;
+  height: 78%;
+  overflow: scroll;
 }
 .content-message {
   position: fixed;
-  padding: 10px 40px;
+  padding: 0 40px;
   bottom: 0;
   width: 100% !important;
   background: #E3F2FD;
   box-shadow: 0 2px 5px 5px #9E9E9E;
+  z-index: 9999;
 }
 .content-message__text {
-  width: 88% !important;
+  width: 100% !important;
   margin-right: 2% !important;
 }
 .mdl-card {
@@ -39,4 +48,10 @@ body {
   position: absolute;
   right: 0;
   color: #9E9E9E;
+}
+.button-info {
+  margin-top: 100%
+}
+.icon-forum:after {
+  content: 'a';
 }
