@@ -49,7 +49,7 @@ socket.on('chat message', function(data) {
   console.log(data);
   $('#messages').append(`<div class="mdl-card mdl-shadow--2dp">
   <div class="mdl-card__title mdl-card--expand">
-    <p> <strong><em> ${data[data.length - 1].result.detail.nama} &nbsp; : &nbsp;</em></strong> ${bf.decrypt(data[data.length - 1].result.detail.pesan).replace(/0/g, '')} </p>
+    <p> <strong><em> ${data[data.length - 1].result.detail.nama} &nbsp; : &nbsp;</em></strong> ${data[data.length - 1].result.detail.pesan} </p>
   <p class="end"> ${data[data.length - 1].result.waktu} </p>
   </div> </div>`);
 

@@ -20,15 +20,15 @@ block content
           
 
   div(class="container-messages")
-    each t in title
+    each d in data
       //- li= t.result
       div(class=" mdl-card mdl-shadow--2dp")
         div(class="mdl-card__title mdl-card--expand")
           p
             strong 
-              em= t.result.detail.nama + ' : '
-            = t.result.detail.pesan
-          p(class="end")=  t.result.waktu
+              em= d.result.detail.nama + ' : '
+            = d.result.detail.pesan
+          p(class="end")=  d.result.waktu
     div(id="messages")
     
   //- div(class="fab")

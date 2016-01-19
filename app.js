@@ -9,11 +9,6 @@ var bodyParser = require('body-parser');
 // var routes = require('./routes/index');
 var Blowfish = require('blowfish');
 var bf = new Blowfish('some key');
-var ciphertext = bf.encrypt('some plaintext');
-var plaintext = bf.decrypt('8A3BEF3AC513F3EF6F948648507B55DF');
-
-console.log(ciphertext);
-console.log(plaintext);
 
 var app = express();
 var http = require('http').Server(app);
@@ -50,11 +45,14 @@ var server = jayson.server({
   },
 });
 
+var dataTemp = {};
+
 server.http().listen(3001, function() {
   console.log('Server listening on http://localhost:3001');
 });
 
 var data = [];
+var dataRefresh = [];
 
 var client = jayson.client.http({ port: 3001, host: 'localhost' });
 
@@ -62,11 +60,7 @@ var client = jayson.client.http({ port: 3001, host: 'localhost' });
 
 app.get('/', function(req, res) {
 
-  res.render('index', { title: data });
-
-  client.request('multiply', [5, 5], function(err, reply) {
-    // res.render('index', { title: JSON.stringify(reply) });
-  });
+  res.render('index', { data: dataRefresh });
 });
 
 app.post('/', function(req, res, next) {
@@ -100,11 +94,16 @@ io.on('connection', function(socket) {
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
+
     var time = [h, m].join(':');
-    console.log(time);
 
     client.request('echo', [msg, time], function(err, reply) {
+      console.log(`client request`);
       console.log(reply);
+      dataTemp = reply;
+      dataTemp.result.detail.pesan = bf.decrypt(reply.result.detail.pesan).replace(/0/g, '');
+
+      dataRefresh.push(reply);
       data.push(reply);
       io.emit('chat message', data);
 
