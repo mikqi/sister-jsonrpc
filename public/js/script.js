@@ -14,12 +14,19 @@ alertify.prompt('Masukkan nama anda', 'Joko', function(evt, value) {
     alertify.error('nama default anda default');
   }).setHeader('Selamat Datang!');
 
+// BLOWFISH
+var bf = new Blowfish('some key');
+var ciphertext = bf.encrypt('some plaintext');
+var plaintext = bf.decrypt(ciphertext);
+console.log(ciphertext);
+console.log(plaintext);
+
 var team = `
 <ul>
-  <li> N </li>
-  <li> A </li>
-  <li> M </li>
-  <li> A </li>
+  <li class="nama-team"> Muhammad Rivki <span class="nim-team"> 10112582 </span></li>
+  <li class="nama-team"> Mohammad Febri Ramadlan<span class="nim-team"> 10112695 </span></li>
+  <li class="nama-team"> Hafizha Husnaisa <span class="nim-team"> 10112775 </span></li>
+  <li class="nama-team"> Rosmaya Nurbayanti <span class="nim-team"> 10112803 </span></li>
 </ul>
 `;
 
@@ -32,7 +39,7 @@ var socket = io();
 
 // ON SUBMIT DATA DI KIRIM KE SERVER
 $('form').submit(function() {
-  socket.emit('chat message', { nama: localStorage.getItem('nama'), pesan:$('#message').val() });
+  socket.emit('chat message', { nama: localStorage.getItem('nama'), pesan: bf.encrypt($('#message').val()) });
   $('#message').val('');
   return false;
 });
@@ -42,7 +49,7 @@ socket.on('chat message', function(data) {
   console.log(data);
   $('#messages').append(`<div class="mdl-card mdl-shadow--2dp">
   <div class="mdl-card__title mdl-card--expand">
-    <p> <strong><em> ${data[data.length - 1].result.detail.nama} &nbsp; : &nbsp;</em></strong> ${data[data.length - 1].result.detail.pesan} </p>
+    <p> <strong><em> ${data[data.length - 1].result.detail.nama} &nbsp; : &nbsp;</em></strong> ${bf.decrypt(data[data.length - 1].result.detail.pesan).replace(/0/g, '')} </p>
   <p class="end"> ${data[data.length - 1].result.waktu} </p>
   </div> </div>`);
 

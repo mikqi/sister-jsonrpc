@@ -7,6 +7,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 // var routes = require('./routes/index');
+var Blowfish = require('blowfish');
+var bf = new Blowfish('some key');
+var ciphertext = bf.encrypt('some plaintext');
+var plaintext = bf.decrypt('8A3BEF3AC513F3EF6F948648507B55DF');
+
+console.log(ciphertext);
+console.log(plaintext);
 
 var app = express();
 var http = require('http').Server(app);

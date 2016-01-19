@@ -38,11 +38,11 @@ block content
   div(class="content-message")
     form(method="post", action="/")
       div(class="mdl-grid")
-        div(class="mdl-cell mdl-cell--11-col")
-          div(class="mdl-textfield mdl-js-textfield content-message__text")
+        div(class="mdl-cell mdl-cell--11-col mdl-cell--11-col-phone mdl-cell--11-col-tablet")
+          div(class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label content-message__text")
             input(id="message", type="text", class="mdl-textfield__input", required)
             label(class="mdl-textfield__label") Message..
-        div(class="mdl-cell mdl-cell--1-col")
+        div(class="mdl-cell mdl-cell--1-col mdl-cell--1-col-phone mdl-cell--1-col-tablet")
           button(class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-button--mini-fab mdl-js-ripple-effect") 
             i(class="material-icons") send
         

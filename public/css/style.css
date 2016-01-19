@@ -55,3 +55,14 @@ body {
 .icon-forum:after {
   content: 'a';
 }
+.nama-team {
+  list-style: none;
+  font-size: 1.3em;
+  padding: 5px;
+  color: #5D5D5D;
+}
+.nim-team {
+  color: #C5C5C5;
+  position: absolute;
+  right: 14%;
+}
