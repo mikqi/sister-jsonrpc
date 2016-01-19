@@ -66,3 +66,15 @@ body {
   position: absolute;
   right: 14%;
 }
+.typing {
+  padding: 0 4%;
+  color: #2196F3;
+  margin-bottom: 0;
+  margin-top: 1%
+}
+.disconnect {
+  padding: 0 4%;
+  color: #F44336;
+  margin-bottom: 0;
+  margin-top: 1%
+}

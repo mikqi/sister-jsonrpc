@@ -26,8 +26,8 @@ block content
         div(class="mdl-card__title mdl-card--expand")
           p
             strong 
-              em= d.result.detail.nama + ' : '
-            = d.result.detail.pesan
+              em(style='color:#{d.result.color}')= d.result.detail.nama + ' : '
+            | &nbsp; #{d.result.detail.pesan}
           p(class="end")=  d.result.waktu
     div(id="messages")
     

@@ -36,8 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', routes);
 
 var server = jayson.server({
-  echo: function(data, time, callback) {
-    callback(null, { detail: data, waktu: time });
+  echo: function(data, time, color, callback) {
+    callback(null, { detail: data, waktu: time, color: color });
   },
 
   multiply: function(a, b, callback) {
@@ -89,7 +89,28 @@ app.post('/', function(req, res, next) {
 
 io.on('connection', function(socket) {
   console.log('user connected');
-  socket.emit('news', { hello: 'world' });
+  var color = '';
+
+  // SETIAP DC
+  socket.on('disconnect', function() {
+    io.emit('disconnect', socket.nama);
+    console.log(`${socket.nama} has been disconnected`);
+  });
+
+  // SETIAP ADA YANG JOIN
+  socket.on('join', function(nama) {
+    socket.nama = nama.nama;
+    console.log(nama);
+    color = nama.color;
+    io.emit('join', nama.nama);
+  });
+
+  socket.on('typing', function(status) {
+    console.log(status);
+    io.emit('typing', status);
+  });
+
+  // USER REQUEST SAVE CACHE
   socket.on('chat message', function(msg) {
     var today = new Date();
     var h = today.getHours();
@@ -97,7 +118,7 @@ io.on('connection', function(socket) {
 
     var time = [h, m].join(':');
 
-    client.request('echo', [msg, time], function(err, reply) {
+    client.request('echo', [msg, time, color], function(err, reply) {
       console.log(`client request`);
       console.log(reply);
       dataTemp = reply;
