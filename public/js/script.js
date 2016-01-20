@@ -71,20 +71,23 @@ socket.on('chat message', function(data) {
   $('#messages').smilify();
 });
 
-socket.on('join', function(nama) {
-  console.log(`${nama} Join`);
-  alertify.success(`${nama} ikut nimbrung`);
+socket.on('join', function(data) {
+  console.log(`${data.nama} Join`);
+  alertify.success(`${data.nama} ikut nimbrung`);
+  alertify.success(`${data.online} user online`);
 
   // $('#messages').append(`<p class="joined"><em> ${nama} ikut nimbrung </em></p>`);
 });
 
-socket.on('disconnect', function(nama) {
-  console.log(`${nama} DC`);
-  if (nama != null) {
-    alertify.error(`${nama} berhasil kabur`);
+socket.on('disconnect', function(data) {
+  console.log(`${data.nama} DC`);
+  if (data.nama != null) {
+    alertify.error(`${data.nama} berhasil kabur`);
+    alertify.error(`${data.online} user online`);
 
     // $('#messages').append(`<p class="disconnect"><em> ${nama} berhasil kabur  </em></p>`);
   }
+
 });
 
 //TYPING

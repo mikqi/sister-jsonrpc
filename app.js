@@ -53,6 +53,7 @@ server.http().listen(3001, function() {
 
 var data = [];
 var dataRefresh = [];
+var online = 0;
 
 var client = jayson.client.http({ port: 3001, host: 'localhost' });
 
@@ -93,16 +94,18 @@ io.on('connection', function(socket) {
 
   // SETIAP DC
   socket.on('disconnect', function() {
-    io.emit('disconnect', socket.nama);
+    online -= 1;
+    io.emit('disconnect', { nama: socket.nama, online: online });
     console.log(`${socket.nama} has been disconnected`);
   });
 
   // SETIAP ADA YANG JOIN
   socket.on('join', function(nama) {
+    online += 1;
     socket.nama = nama.nama;
     console.log(nama);
     color = nama.color;
-    io.emit('join', nama.nama);
+    io.emit('join', { nama: nama.nama, online: online });
   });
 
   socket.on('typing', function(status) {
