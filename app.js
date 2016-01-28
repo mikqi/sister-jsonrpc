@@ -109,7 +109,6 @@ io.on('connection', function(socket) {
   });
 
   socket.on('typing', function(status) {
-    console.log(status);
     io.emit('typing', status);
   });
 

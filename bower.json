@@ -4,6 +4,23 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
-  ]
+    "components",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/mikqi/sister-jsonrpc",
+  "authors": [
+    "Muhammad Rivki <Muhammad.Rivki@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "dependencies": {
+    "material-design-lite": "~1.0.6",
+    "jquery": "~2.2.0",
+    "randomcolor": "~0.4.2"
+  }
 }

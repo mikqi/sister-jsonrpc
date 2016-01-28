@@ -1,5 +1,28 @@
 var socket = io();
 
+var change = document.getElementById('change');
+
+change.addEventListener('click', changeName);
+
+function changeName() {
+  console.log('clicked');
+  if (localStorage.getItem('nama') !== null) {
+    localStorage.removeItem('nama');
+
+    alertify.prompt('Masukkan nama anda', 'Joko', function(evt, value) {
+      socket.emit('join', { nama: value, color: randomColor() });
+      alertify.success('Selamat datang ' + value);
+      localStorage.setItem('nama', value);
+    },
+
+    function() {
+      socket.emit('join', 'Joko');
+      localStorage.setItem('nama', 'Joko');
+      alertify.error('nama default anda Joko');
+    }).setHeader('Selamat Datang!');
+  }
+}
+
 alertify.defaults.transition = 'zoom';
 alertify.defaults.title = 'Selamat datang';
 alertify.set('notifier', 'position', 'top-right');
@@ -9,17 +32,19 @@ alertify.defaults.theme.cancel = 'mdl-button mdl-js-button mdl-button--raised md
 
 socket.on('connect', function(msg) {
   console.log(msg);
-  alertify.prompt('Masukkan nama anda', 'Joko', function(evt, value) {
-    socket.emit('join', { nama: value, color: randomColor() });
-    alertify.success('Selamat datang ' + value);
-    localStorage.setItem('nama', value);
-  },
+  if (localStorage.getItem('nama') === null) {
+    alertify.prompt('Masukkan nama anda', 'Joko', function(evt, value) {
+      socket.emit('join', { nama: value, color: randomColor() });
+      alertify.success('Selamat datang ' + value);
+      localStorage.setItem('nama', value);
+    },
 
-  function() {
-    socket.emit('join', 'Joko');
-    localStorage.setItem('nama', 'Joko');
-    alertify.error('nama default anda Joko');
-  }).setHeader('Selamat Datang!');
+    function() {
+      socket.emit('join', 'Joko');
+      localStorage.setItem('nama', 'Joko');
+      alertify.error('nama default anda Joko');
+    }).setHeader('Selamat Datang!');
+  }
 
 });
 
@@ -104,11 +129,10 @@ $('#message').keypress(function(e) {
   if (e.which !== 13) {
     if (typing === false && $('#message').is(':focus')) {
       typing = true;
-      console.log('typing');
       socket.emit('typing', { status: true, nama: localStorage.getItem('nama') });
     } else {
       clearTimeout(timeout);
-      timeout = setTimeout(timoutFunction, 1500);
+      timeout = setTimeout(timoutFunction, 500);
     }
   }
 
